@@ -2,6 +2,7 @@
   "name": "v2-discord-cloud-file",
   "version": "0.0.0",
   "private": false,
+  "main": "app/app.js",
   "scripts": {
     "start": "node ./app/bin/www",
     "dev": "nodemon ./app/bin/www",
