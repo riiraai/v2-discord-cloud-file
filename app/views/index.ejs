@@ -7,8 +7,7 @@
   </title>
   <meta name="description" content="A simple file upload form using Discord Webhooks for upload files to Discord Cloud Storage.">
   <link rel='stylesheet' href='/stylesheets/style.css' />
-  <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css" rel="stylesheet"
-    integrity="sha384-T3c6CoIi6uLrA9TneNEoa7RxnatzjcDSCmG1MXxSR1GAsXEV/Dwwykc2MPK8M2HN" crossorigin="anonymous">
+  <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-T3c6CoIi6uLrA9TneNEoa7RxnatzjcDSCmG1MXxSR1GAsXEV/Dwwykc2MPK8M2HN" crossorigin="anonymous">
   <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.2/font/bootstrap-icons.min.css">
   <link rel="icon" type="image/png" href="/images/icons/logo-icon.png" />
 </head>
@@ -100,6 +99,16 @@
               <tbody id="dataUpload"></tbody>
             </table>
           </div>
+          <nav aria-label="Page navigation example">
+            <ul class="pagination justify-content-center">
+              <li class="page-item">
+                <button class="page-link" onclick="buttonPrevPage()">Previous</button>
+              </li>
+              <li class="page-item">
+                <button class="page-link" onclick="buttonNextPage()">Next</button>
+              </li>
+            </ul>
+          </nav>
         </div>
       </div>
     </div>
@@ -141,6 +150,14 @@
       setTimeout(function () {
         tooltip.innerHTML = "<i class='bi bi-clipboard-fill me-2'></i>Copy Url";
       }, 2000);
+    }
+
+    function buttonPrevPage() {
+      alert('Clicked Previous');
+    }
+
+    function buttonNextPage() {
+      alert('Clicked Next');
     }
 
     const getLoadData = () => {
@@ -251,6 +268,7 @@
     }
 
     function uploadFileUsingWebhookDiscordJs() {
+      const getLocalStorage = JSON.parse(localStorage.getItem('json'));
       const getFileInput = document.getElementById("fileInput").files[0];
       const getUrl = document.getElementsByName('url')[0].value;
 
@@ -263,10 +281,10 @@
         let dataJsonStorage = [];
         const resText = JSON.parse(xhr.responseText);
 
-        if (getJsonStorage == null) {
+        if (getLocalStorage == null) {
           dataJsonStorage.push(...resText.response);
         } else {
-          dataJsonStorage.push(...resText.response, ...getJsonStorage);
+          dataJsonStorage.push(...resText.response, ...getLocalStorage);
         }
 
         document.getElementById('uploadForm').reset();

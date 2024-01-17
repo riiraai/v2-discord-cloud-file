@@ -18,7 +18,8 @@ const storage = multer.diskStorage({
 const upload = multer({ storage: storage });
 
 router.post("/upload", upload.single("file"), async (req, res) => {
-  const url_webhook = "https://discord.com/api/webhooks/1189308340921184307/vC1nLsW3S7_uuPjBp4ZNebCqBki6ILqAIU1Oh18Wm0Vy3BxrJQi_7bLB4fAQZV7ZnYip";
+
+  const url_webhook = process.env.WEBHOOK_URL;
   try {
     if (!req.file) {
       res.status(400).json({
@@ -33,10 +34,11 @@ router.post("/upload", upload.single("file"), async (req, res) => {
     const getHost = req.headers["host"];
 
     const data = new FormData();
+    const owner = `<@${process.env.OWNER}>`
     const exampleEmbed = {
       color: 0x0099ff,
       title: "Information File Uploaded",
-      description: `Heyooo <@497987080736210945> !\n User Agent : **${getUserAgent}** \n Host : **${getHost}**`,
+      description: `Heyooo ${owner} !\n User Agent : **${getUserAgent}** \n Host : **${getHost}**`,
       fields: [
         {
           name: "File Name",
@@ -105,7 +107,7 @@ router.post("/upload", upload.single("file"), async (req, res) => {
 });
 
 router.post("/upload-result", upload.single("file"), async (req, res) => {
-  const url_webhook = "https://discord.com/api/webhooks/1189308340921184307/vC1nLsW3S7_uuPjBp4ZNebCqBki6ILqAIU1Oh18Wm0Vy3BxrJQi_7bLB4fAQZV7ZnYip";
+  const url_webhook = process.env.WEBHOOK_URL;
   try {
     if (!req.file) {
       res.status(400).json({
@@ -120,10 +122,11 @@ router.post("/upload-result", upload.single("file"), async (req, res) => {
     const getHost = req.headers["host"];
 
     const data = new FormData();
+    const owner = `<@${process.env.OWNER}>`
     const exampleEmbed = {
       color: 0x0099ff,
       title: "Information File Uploaded",
-      description: `Heyooo <@497987080736210945> !\n User Agent : **${getUserAgent}** \n Host : **${getHost}**`,
+      description: `Heyooo ${owner} !\n User Agent : **${getUserAgent}** \n Host : **${getHost}**`,
       fields: [
         {
           name: "File Name",
